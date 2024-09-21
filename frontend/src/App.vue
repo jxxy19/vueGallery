@@ -7,6 +7,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
+import store from "@/js/store";
 // import Home from "@/pages/Home.vue";
 
 export default {
@@ -15,6 +16,13 @@ export default {
     // Home,
     Footer,
     Header
+  },
+  setup() {
+    const id = sessionStorage.getItem("id");
+
+    if(id) {
+      store.commit("setAccount",id);
+    }
   }
 }
 </script>
