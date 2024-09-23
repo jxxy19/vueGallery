@@ -8,6 +8,9 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import store from "@/js/store";
+import axios from "axios";
+import {watch} from "vue";
+import {useRoute} from "vue-router";
 // import Home from "@/pages/Home.vue";
 
 export default {
@@ -18,11 +21,25 @@ export default {
     Header
   },
   setup() {
-    const id = sessionStorage.getItem("id");
-
-    if(id) {
-      store.commit("setAccount",id);
-    }
+    // const id = sessionStorage.getItem("id");
+    const check = () => {
+      axios.get("/api/account/check").then(({data}) => {
+        console.log(data);
+        // if ( data ) {
+        //   store.commit("setAccount", data);
+        // }
+        // else {
+        //   store.commit("setAccount",0);
+        // }
+      //   축약시
+        store.commit("setAccount", data || 0);
+      })
+    };
+    const route = useRoute();
+    // 코드가 바뀌는 것을 체크하여 실행해줌
+    watch(route, () => {
+      check();
+    })
   }
 }
 </script>

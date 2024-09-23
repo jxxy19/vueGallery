@@ -24,6 +24,7 @@ import util from "@/js/util";
 export default {
   name: "Card",
   props: {
+    // item: Object
     item: String
   },
   setup() {
